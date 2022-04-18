@@ -14,10 +14,24 @@ import sys
 # file to make back up of
 filename = sys.argv[1] #'backup.py' 
 
+def sorterKey(name):
+    """
+    create key to sort the filenames
+    sorted based on the number 11 etc in v11_myfile
+    """
+    # splits v11_myfile etc. at '_' 
+    # find the v11 etc component by indexing to 0
+    # strips v11 of v --> convert '11' to int
+    name = name.split('_')[0].strip('v')
+    key = int(name)
+    return key
+
 # find all files containing 'filename' at the end
 filelist = glob.glob('*' + filename)
-filelist.sort()
-print('before: ', filelist)
+filelist_copy = filelist.copy()
+filelist_copy.pop(filelist.index(filename))
+filelist_copy.sort(key=sorterKey)
+print('before: ', filelist_copy)
 
 # number of previous versions 
 # the list also contains actual file; hence -1
@@ -28,10 +42,15 @@ new_version_number = N + 1
 newbkupname = 'v' + str(new_version_number) + '_' + \
         filename
 
+# copy file: open origin file in read binary mode and read
+# open new file in write binary mode and write
 fcontent = open(filename, 'rb').read()
 open(newbkupname, 'wb').write(fcontent)
 
+print('\n')
+
 # find all files containing 'filename' at the end
 filelist = glob.glob('*' + filename)
-filelist.sort()
+filelist.pop(filelist.index(filename))
+filelist.sort(key=sorterKey)
 print('after: ', filelist)
