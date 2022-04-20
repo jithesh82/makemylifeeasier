@@ -5,7 +5,7 @@ import ast
 from datetime import datetime
 import pickle
 
-api_key="Qyfrj57dOMYDbnY4d62Lq1dTyPAQtX4d"
+api_key="Qyfxrpj57mdMYbnY4d62Lq1dTyPAQtX4d"
 new_york_key = 349727
 def getData():
     url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/349727?apikey=Qyfrj57dOMYDbnY4d62Lq1dTyPAQtX4d%20&details=true"
