@@ -14,6 +14,10 @@ import sys
 # file to make back up of
 filename = sys.argv[1] #'backup.py' 
 
+comments = None
+if len(sys.argv) > 2:
+    comments = sys.argv[2]
+
 def sorterKey(name):
     """
     create key to sort the filenames
@@ -42,10 +46,16 @@ new_version_number = N + 1
 newbkupname = 'v' + str(new_version_number) + '_' + \
         filename
 
+#add comments at the top if present
+if comments:
+    comments = "# " + comments + "\n"
+    with open(newbkupname, 'w') as f:
+        f.write(comments)
+
 # copy file: open origin file in read binary mode and read
 # open new file in write binary mode and write
 fcontent = open(filename, 'rb').read()
-open(newbkupname, 'wb').write(fcontent)
+open(newbkupname, 'ab').write(fcontent)
 
 print('\n')
 
